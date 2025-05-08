@@ -15,4 +15,4 @@ const DeleteTask = ({ taskId, onDelete }) => {
   );
 }
 
-export default DeleteTask
+export default DeleteTask 

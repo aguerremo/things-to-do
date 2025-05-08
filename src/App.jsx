@@ -9,8 +9,10 @@ function App() {
   
 
   return <div>
+    <div>
+    <h1>TTD</h1>
+    </div>
     
-    <h1>LOGO</h1>
     <CreateButton setTasks={setTasks} tasks={tasks}/>
     <TaskList tasks={tasks}/>
   
