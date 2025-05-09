@@ -1,3 +1,5 @@
+import taskService from "../services/taskService"
+
 const AddTask = ({setTasks}) => {
 
   const generateId = () => {
@@ -12,6 +14,14 @@ const AddTask = ({setTasks}) => {
       description: e.target.elements.description.value,
       id: generateId()
     }
+    const taskCreated = taskService.create(task)
+    taskCreated
+      .then((response) => {
+        console.log('Task created:', response)
+      })
+      .catch((error) => {
+        console.error('Error creating task:', error)
+      })
     if (task) {
       console.log('Task added:', task)
       e.target.elements.title.value = ''

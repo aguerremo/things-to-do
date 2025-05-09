@@ -4,9 +4,9 @@ import TaskList from './components/TaskList'
 import CreateButton from './components/CreateButton'
 import { useState } from 'react'
 
-function App() {
+
+const App = () => {
   const [tasks, setTasks] = useState([])
-  
 
   return <div>
     <div>
@@ -14,7 +14,7 @@ function App() {
     </div>
     
     <CreateButton setTasks={setTasks} tasks={tasks}/>
-    <TaskList tasks={tasks}/>
+    <TaskList tasks={tasks} setTasks={setTasks}/>
   
   </div>
 }
