@@ -15,7 +15,7 @@ const getAll = async () => {
 const create = async (task) => {
   
   try {
-    const response = await axios.post(`${baseURL}/${task.id}`, task)
+    const response = await axios.post(`${baseURL}/addTask`, task)
     return response.data
   } catch (error) {
     console.error("Error creating task:", error)
@@ -23,4 +23,4 @@ const create = async (task) => {
   }
 }
 
-export default {getAll, create}
+export default { getAll, create }
