@@ -1,11 +1,11 @@
 import axios from "axios"
 
-const baseURL = "/api"
+const baseURL = "/api/"
 
 const getAll = async () => {
   try {
     const response = await axios.get(`${baseURL}/getTask`)
-    return response.data
+    return response
   } catch (error) {
     console.error("Error fetching tasks:", error)
     throw error
@@ -15,7 +15,7 @@ const getAll = async () => {
 const create = async (task) => {
   
   try {
-    const response = await axios.post(`${baseURL}/addTask`, task)
+    const response = await axios.post(`${baseURL}addTask`, task)
     return response.data
   } catch (error) {
     console.error("Error creating task:", error)
@@ -23,4 +23,14 @@ const create = async (task) => {
   }
 }
 
-export default { getAll, create }
+const remove = async (id) => {
+  try {
+    const response = await axios.delete(`${baseURL}deleteTask/${id}`)
+    return response.data
+  } catch (error) {
+    console.error("Error deleting task:", error)
+    throw error
+  }
+}
+
+export default { getAll, create, remove }

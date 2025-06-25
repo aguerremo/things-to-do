@@ -1,10 +1,19 @@
-const DeleteTask = ({ taskId, onDelete }) => {
-  const handleDelete = () => {
-    
-      onDelete(taskId)
-      .then(() => {
-        console.log("Task deleted successfully");
-      })
+import taskService from "../services/taskService"
+
+
+const DeleteTask = ({ task, setTasks }) => {
+
+
+  const handleDelete = async (event) => {
+    event.preventDefault()
+    console.log("Deleting task with ID:", task.id);
+    try {
+      await taskService.remove(task.id)
+      console.log('Task deleted:', task.id)
+      setTasks((prevTasks) => prevTasks.filter((t) => t.id !== task.id))
+    } catch (error) {
+      console.error('Error deleting task:', error)
+    }
  
   };
 
