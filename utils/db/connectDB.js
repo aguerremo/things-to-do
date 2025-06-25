@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 
-const MONGO_DB_URI = process.env.MONGODB_URI
+const MONGO_DB_URI = process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test'
+? process.env.TEST_MONGODB_URI
+: process.env.MONGODB_URI
+
 export async function connectDB() {
   try {
     await mongoose.connect(MONGO_DB_URI)

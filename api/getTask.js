@@ -1,21 +1,18 @@
-let tasks = [
-  {
-    id: 1,
-    title: "Task 1",
-    description: "Description for Task 1",
-    all_day: true,
-  },
-  {
-    id: 2,
-    title: "Task 2",
-    description: "Description for Task 2",
-    all_day: false,
-  },
-]
+import { connectDB } from "../utils/db/connectDB.js"
+import Task from "../models/Task.js"
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === "GET") {
-    res.status(200).json(tasks)
+    try {
+      await connectDB()
+
+      const tasks = await Task.find({})
+      res.status(200).json(tasks)
+
+    } catch (error) {
+      console.error('Error al obtener tareas:', error);
+      res.status(500).json({ error: 'Error interno del servidor al obtener tareas' });
+    }
   } else {
     res.setHeader("Allow", ["GET"])
     res.status(405).end(`Method ${req.method} Not Allowed`)

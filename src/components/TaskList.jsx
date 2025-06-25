@@ -10,20 +10,7 @@ const TaskList = ({tasks, setTasks}) => {
       try {
         const initialTasks = await taskService.getAll()
         console.log('initialTasks: ', initialTasks)
-        setTasks([
-          {
-            id: 1,
-            title: "Task 1",
-            description: "Description for Task 1",
-            all_day: true,
-          },
-          {
-            id: 2,
-            title: "Task 2",
-            description: "Description for Task 2",
-            all_day: false,
-          },
-        ])
+        setTasks(initialTasks.data)
       } catch (err){
         console.error('Error fetching tasks:', err)
       }
