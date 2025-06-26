@@ -19,21 +19,17 @@ const TaskList = ({tasks, setTasks}) => {
     fetchTasks()
   }, [])
 
-  console.log('Tasks being passed to TaskList:', tasks)
-
   if (tasks === null || tasks.length === 0) {
     return <p>There are no tasks</p>
   } else {
     return tasks
     .filter(task => task != null)
-    .map((task, index) => {
-      console.log(`--- Mapping task at index ${index}:`, task)
+    .map((task) => {
       if (!task) {
-        console.error(`Task at index ${index} is undefined or null!`);
         return null
       }
       return (
-        <div key={task._id} className="task"> {/* Cambia `task.id` por `task._id` */}
+        <div key={task._id} className="task">
           <h3>{task.title}</h3>
           <p>{task.description}</p>
           <CompleteTask task={task} setTasks={setTasks} />

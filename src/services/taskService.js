@@ -24,8 +24,6 @@ const create = async (newTask) => {
 }
 
 const remove = async (task) => {
-  console.log('task in remove function:', task)
-  console.log('task id in remove function:', task.id)
   try {
     const response = await axios.delete(`${baseURL}deleteTask/${task}`)
     return response.data
