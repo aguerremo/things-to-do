@@ -32,16 +32,16 @@ const TaskList = ({tasks, setTasks}) => {
         console.error(`Task at index ${index} is undefined or null!`);
         return null
       }
-      return(
-      <div key={task.id} className="task">
-        <h3>{task.title}</h3>
-        <p>{task.description}</p>
-        <CompleteTask task={task} setTasks={setTasks} />
-        <DeleteTask task={task} setTasks={setTasks}/>
-      </div>)
+      return (
+        <div key={task._id} className="task"> {/* Cambia `task.id` por `task._id` */}
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+          <CompleteTask task={task} setTasks={setTasks} />
+          <DeleteTask task={task} setTasks={setTasks} />
+        </div>
+      )
   })
   }
 }
-
 
 export default TaskList
