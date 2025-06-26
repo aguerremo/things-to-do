@@ -10,7 +10,7 @@ const TaskList = ({tasks, setTasks}) => {
       try {
         const initialTasks = await taskService.getAll()
         console.log('initialTasks: ', initialTasks)
-        setTasks(initialTasks.data)
+        setTasks(initialTasks)
       } catch (err){
         console.error('Error fetching tasks:', err)
       }
@@ -19,10 +19,19 @@ const TaskList = ({tasks, setTasks}) => {
     fetchTasks()
   }, [])
 
+  console.log('Tasks being passed to TaskList:', tasks)
+
   if (tasks === null || tasks.length === 0) {
     return <p>There are no tasks</p>
   } else {
-    return tasks.map((task) => {
+    return tasks
+    .filter(task => task != null)
+    .map((task, index) => {
+      console.log(`--- Mapping task at index ${index}:`, task)
+      if (!task) {
+        console.error(`Task at index ${index} is undefined or null!`);
+        return null
+      }
       return(
       <div key={task.id} className="task">
         <h3>{task.title}</h3>

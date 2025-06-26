@@ -2,34 +2,28 @@ import taskService from "../services/taskService"
 
 const AddTask = ({setTasks}) => {
 
-  const generateId = () => {
-    return Math.floor(Math.random() * 10000)
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    const task  = {
+    const newTask  = {
       title: e.target.elements.title.value,
       all_day: e.target.elements.all_day.checked,
       description: e.target.elements.description.value,
-      id: generateId()
     }
-    const taskCreated = taskService.create(task)
+    const taskCreated = taskService.create(newTask)
+
     taskCreated
       .then((response) => {
+        const taskSaved = response
         console.log('Task created:', response)
+        e.target.elements.title.value = ''
+        e.target.elements.all_day.checked = false
+        e.target.elements.description.value = ''
+
+        setTasks((prevTasks) => [...prevTasks, taskSaved])
       })
       .catch((error) => {
         console.error('Error creating task:', error)
       })
-    if (task) {
-      console.log('Task added:', task)
-      e.target.elements.title.value = ''
-      e.target.elements.all_day.checked = false
-      e.target.elements.description.value = ''
-
-      setTasks((prevTasks) => [...prevTasks, task])
-    }
   }
 
   return (
