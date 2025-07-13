@@ -13,14 +13,14 @@ const CreateButton = ({setTasks}) => {
     
     return <div>
       <AddTask setTasks={setTasks}/>
-    <button onClick={handleClick}>Cancel</button>
-
+  
+          <button onClick={handleClick}>Cancel</button>
     </div>
     
   }
 
   return <div>
-    <button onClick={handleClick}>Create new task</button>
+    <button onClick={handleClick}>New Task</button>
     </div>
 
 }

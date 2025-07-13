@@ -13,6 +13,10 @@ const taskSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  checked: {
+    type: Boolean,
+    default: false,
+  },
 
   //Otros campos nuevos para agregar...
 })

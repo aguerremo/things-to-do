@@ -29,7 +29,7 @@ const TaskList = ({tasks, setTasks}) => {
         return null
       }
       return (
-        <div key={task._id} className="task">
+        <div key={task.id} className="task-list">
           <h3>{task.title}</h3>
           <p>{task.description}</p>
           <CompleteTask task={task} setTasks={setTasks} />

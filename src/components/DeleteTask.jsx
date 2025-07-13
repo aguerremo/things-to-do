@@ -14,7 +14,7 @@ const DeleteTask = ({ task, setTasks }) => {
   }
 
   return (
-    <button onClick={handleDelete} className="delete-task">
+    <button onClick={handleDelete} className="delete-button">
       Delete Task
     </button>
   );

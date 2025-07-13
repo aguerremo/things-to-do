@@ -33,7 +33,9 @@ const AddTask = ({setTasks}) => {
         <input type="checkbox" name="all_day" value="All day"/>
           <label htmlFor="all_day">All day</label><br />
         <input type="description" name="description" placeholder="Add a description"/><br />
-        <button type="submit">Add new Task</button>
+        <div className="outer flex-container-row">
+        <div className="button_slide slide_down"><button type="submit">Create</button></div>
+        </div>
       </form>
 
     </div>

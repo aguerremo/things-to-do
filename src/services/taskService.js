@@ -4,7 +4,7 @@ const baseURL = "/api/"
 
 const getAll = async () => {
   try {
-    const response = await axios.get(`${baseURL}/getTask`)
+    const response = await axios.get(`${baseURL}getTask`)
     return response.data
   } catch (error) {
     console.error("Error fetching tasks:", error)
@@ -33,4 +33,14 @@ const remove = async (task) => {
   }
 }
 
-export default { getAll, create, remove }
+const update = async (checkedTask) => {
+  try {
+    const response = await axios.put(`${baseURL}updateTask/${checkedTask.id}`, checkedTask)
+    return response.data
+  } catch (error) {
+    console.error("Error updating task:", error)
+    throw error
+  }
+}
+
+export default { getAll, create, remove, update }

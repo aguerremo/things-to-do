@@ -1,11 +1,45 @@
-const CompleteTask = ({ task, onComplete }) => {
-  const handleComplete = () => {
-    onComplete(task.id);
-  };
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react'
+import taskService from "../services/taskService"
+
+const CompleteTask = ({task, setTasks}) => {
+  const [checked, setChecked] = useState(task.checked || false);
+  if(checked === true) {
+    task.checked = true
+    console.log('Task completed:', task.title)
+    console.log(task.title, 'is completed:', task.checked)
+  } else {
+    task.checked = false
+    console.log('Task not completed:', task.title)
+    console.log(task.title, 'is completed:', task.checked)
+
+  }
+  const handleChecked = async (event) => {
+    event.preventDefault()
+    const newChecked = !checked;
+    setChecked(newChecked);
+    const checkedTask = {
+      ...task,
+      checked: newChecked
+    }
+    try{
+      await taskService.update(checkedTask)
+      console.log('Task updated:', checkedTask)
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  
+    console.log("Check task with ID:", task.id)
+    
+    setTasks((prevTasks) => {
+      return prevTasks.map(t => t.id === task.id ? checkedTask : t);
+    })
+
+  }
 
   return (
     <div>
-      <button name="completebutton" onClick={handleComplete}>✓</button>
+      <input type="checkbox" checked={checked} onChange={handleChecked} />
     </div>
   );
 }

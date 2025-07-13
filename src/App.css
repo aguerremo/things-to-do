@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -31,6 +31,65 @@
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  background: #252525;
+  color: #f0f0f0;
+  justify-content: center;
+  justify-items: center;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+  border: #e4e4e4 1px solid;
+  border-radius: 12px;
+}
+
+button{
+  background: #e7e7e7;
+  color: #1d1d1d;
+  border: 1px solid;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  border-color: #e7e7e7;
+  cursor: pointer;
+}
+
+.delete-button{ 
+  background: #ff4d4d;
+  color: #fff;
+  border-color: #ff4d4d;
+}
+
+.confirm-button {
+  background: #4dff4d;
+  color: #fff;
+  border-color: #4dff4d;
+}
+
+.outer {
+  width: 364px;
+  margin: 20px auto 0 auto;
+  text-align: center;
+}
+
+/* Contenedor para colocar elementos en fila (uno al lado del otro) */
+.flex-container-row {
+  display: flex;
+  flex-direction: row; /* Los elementos se colocan en una fila */
+  gap: 20px;          /* Espacio entre los elementos (más moderno que margin) */
+  margin-bottom: 20px; /* Espacio debajo del contenedor */
+  border: 1px solid lightgray;
+  padding: 10px;
 }
 
 .card {
