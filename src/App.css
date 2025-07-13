@@ -86,7 +86,7 @@ button{
 .flex-container-row {
   display: flex;
   flex-direction: row; /* Los elementos se colocan en una fila */
-  gap: 20px;          /* Espacio entre los elementos (más moderno que margin) */
+  gap: 25px;          /* Espacio entre los elementos (más moderno que margin) */
   margin-bottom: 20px; /* Espacio debajo del contenedor */
   border: 1px solid lightgray;
   padding: 10px;
