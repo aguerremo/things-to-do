@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       }
       const updatedTask = await Task.findByIdAndUpdate(
         id,
-        { title, description, checked }, // Actualiza los campos necesarios
+        { title, description, checked }, // Actualiza los campos necesarios (Aqui se añaden todos los campos a actualizar)
         { new: true } // Devuelve el documento actualizado
       )
       if (!updatedTask) {
