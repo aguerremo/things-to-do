@@ -33,9 +33,9 @@ const remove = async (task) => {
   }
 }
 
-const update = async (checkedTask) => {
+const update = async (updatedTask) => {
   try {
-    const response = await axios.put(`${baseURL}updateTask/${checkedTask.id}`, checkedTask)
+    const response = await axios.put(`${baseURL}updateTask/${updatedTask.id}`, updatedTask)
     return response.data
   } catch (error) {
     console.error("Error updating task:", error)

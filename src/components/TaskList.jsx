@@ -2,6 +2,7 @@ import CompleteTask from "./CompleteTask"
 import DeleteTask from "./DeleteTask"
 import { useEffect } from "react"
 import taskService from "../services/taskService"
+import EditTask from "./EditTask"
 
 const TaskList = ({tasks, setTasks}) => {
 
@@ -34,6 +35,8 @@ const TaskList = ({tasks, setTasks}) => {
           <p>{task.description}</p>
           <CompleteTask task={task} setTasks={setTasks} />
           <DeleteTask task={task} setTasks={setTasks} />
+          <EditTask task={task} setTasks={setTasks} />
+          
         </div>
       )
   })

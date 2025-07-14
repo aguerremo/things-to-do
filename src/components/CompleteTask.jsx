@@ -18,13 +18,13 @@ const CompleteTask = ({task, setTasks}) => {
     event.preventDefault()
     const newChecked = !checked;
     setChecked(newChecked);
-    const checkedTask = {
+    const updatedTask = {
       ...task,
       checked: newChecked
     }
     try{
-      await taskService.update(checkedTask)
-      console.log('Task updated:', checkedTask)
+      await taskService.update(updatedTask)
+      console.log('Task updated:', updatedTask)
     } catch (error) {
       console.error('Error updating task:', error);
     }
@@ -32,7 +32,7 @@ const CompleteTask = ({task, setTasks}) => {
     console.log("Check task with ID:", task.id)
     
     setTasks((prevTasks) => {
-      return prevTasks.map(t => t.id === task.id ? checkedTask : t);
+      return prevTasks.map(t => t.id === task.id ? updatedTask : t);
     })
 
   }
