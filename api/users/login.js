@@ -1,8 +1,9 @@
-import { connectDB } from "../../utils/db/connectDB.js"
+import { connectDB, JWT_SECRET } from "../../utils/db/connectDB.js"
 import User from "../../models/User.js"
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { JWT_SECRET } from "../../utils/config.js"
+import dotenv from 'dotenv'
+dotenv.config()
 
 export default async function handler(req, res) {
   if (req.method === "POST") {

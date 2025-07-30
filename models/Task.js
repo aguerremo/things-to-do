@@ -17,6 +17,11 @@ const taskSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  }
 
   //Otros campos nuevos para agregar...
 })

@@ -1,16 +1,18 @@
 import { connectDB } from "../../utils/db/connectDB.js"
 import Task from "../../models/Task.js"
+import { authenticateToken } from "../../middleware/auth.js"
 
-export default async function handler(req, res) {
+export default authenticateToken( async function handler(req, res) {
   if (req.method === "DELETE") {
   try {
       await connectDB()
 
+      const userId = req.userId.id // Obtenemos el ID del usuario del token
       const { id } = req.query
       if (!id) {
         return res.status(400).json({ error: "ID required" })
       }
-      const deletedTask = await Task.findByIdAndDelete(id)
+      const deletedTask = await Task.findByIdAndDelete(id, userId)
       if (!deletedTask) {
         return res.status(404).json({ error: "Task not found" })
       }
@@ -26,4 +28,4 @@ export default async function handler(req, res) {
     res.setHeader("Allow", ["DELETE"])
     res.status(405).end(`Method ${req.method} Not Allowed`)
   }
-}
+})

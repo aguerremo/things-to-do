@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import uniqueValidator from 'mongoose-unique-validator'
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -7,7 +6,9 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     minlength: 3,
-    maxlength: 20
+    maxlength: 20,
+    match: /^[a-zA-Z0-9_]+$/, // Permitir solo letras, números y guiones bajos
+    trim: true // Elimina espacios en blanco al inicio y al final
   },
   name: {
     type: String,
@@ -19,12 +20,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 6,
-    maxlength: 30,
+    maxlength: 100,
   },
   tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Task' // Referencia al modelo Task
+      ref: 'Task'
     }
   ]
 
@@ -40,8 +41,6 @@ userSchema.set('toJSON', {
     delete ret.tasks // No enviar las tareas al cliente por defecto
   },
 })
-
-userSchema.plugin(uniqueValidator, { message: 'Nombre de usuario ya existente.' }) // Asegura que el nombre de usuario sea único
 
 const User = mongoose.model('User', userSchema)
 

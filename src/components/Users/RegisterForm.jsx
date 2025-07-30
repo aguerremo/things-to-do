@@ -1,21 +1,33 @@
-import userService from "../../services/userService"
+import registerService from "../../services/registerService"
 import { useState } from "react"
 
-const RegisterForm = ({ setUser }) => {
-  const [error, setError] = useState(null)
+const RegisterForm = ({setShowForm, showForm}) => {
+  const [notification, setNotification] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const username = e.target.elements.username.value
-    const name = e.target.elements.name.value
-    const password = e.target.elements.password.value
+    const newUser = {
+      username: e.target.elements.username.value,
+      name: e.target.elements.name.value,
+      password: e.target.elements.password.value
+    }
 
     try {
-      const user = await userService.register({ username, name, password })
-      setUser(user)
+      console.log('Registering user:', newUser)
+      const user = await registerService.register(newUser)
       console.log('User registered succesfully:', user)
+      setNotification('Registration successful! You can now log in.')
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000) // Clear notification after 5 seconds
+      setShowForm(!showForm) // Close the registration form after successful registration
+
     } catch (error) {
-      setError('Registration failed')
+      setNotification('Registration failed. Please try again.')
+      setTimeout(() => {
+        setNotification(null)
+      }, 5000) // Clear error after 5 seconds
+      
       console.error('Registration error:', error)
     }
   }
@@ -27,7 +39,7 @@ const RegisterForm = ({ setUser }) => {
         <input type="text" name="name" placeholder="Name" required /><br />
         <input type="password" name="password" placeholder="Password" required /><br />
         <button type="submit">Register</button>
-        {error && <p className="error">{error}</p>}
+        {notification && <p className="error">{notification}</p>}
       </form>
     </div>
   )

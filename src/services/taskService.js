@@ -2,6 +2,17 @@ import axios from "axios"
 
 const baseURL = "/api/"
 
+let token = null
+
+const setToken = (newToken) => {
+  token = `Bearer ${newToken}`
+  axios.defaults.headers.common['Authorization'] = token //Establece el token en los headers de Axios
+  if (newToken === null || newToken === undefined) {
+    delete axios.defaults.headers.common['Authorization'] //Elimina el token si es null o undefined
+  }
+
+}
+
 const getAll = async () => {
   try {
     const response = await axios.get(`${baseURL}getTask`)
@@ -13,7 +24,6 @@ const getAll = async () => {
 }
 
 const create = async (newTask) => {
-  
   try {
     const response = await axios.post(`${baseURL}addTask`, newTask)
     return response.data
@@ -43,4 +53,4 @@ const update = async (updatedTask) => {
   }
 }
 
-export default { getAll, create, remove, update }
+export default { getAll, create, remove, update, setToken }

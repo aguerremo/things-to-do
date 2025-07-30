@@ -1,45 +1,51 @@
-import { connectDB } from "../../utils/db/connectDB.js"
+import { connectDB, JWT_SECRET } from "../../utils/db/connectDB.js"
 import User from "../../models/User.js"
-import bcrypt from 'bcryptjs'
+import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { JWT_SECRET } from "../../utils/config.js"
+import dotenv from 'dotenv'
+dotenv.config()
 
-export default async function handler(req, res) { //Exportamos la función handler para manejar las solicitudes HTTP
-  if (req.method === "POST") { //Verificamos si el método de la solicitud es POST
+export default async function handler(req, res) {
+  if (req.method === "POST") {
     try {
-      await connectDB() //Conectamos a la base de datos
+      await connectDB();
+      console.log('Conexión para registro a la base de datos exitosa')
 
-      const { username, name, password } = req.body //Obtenemos los datos del cuerpo de la solicitud
+      const { username, name, password } = req.body
+      console.log('Datos recibidos:', { username, name })
 
-      if (!username) { //Verificamos que todos los campos sean proporcionados
-        return res.status(400).json({ error: "Username are required" })
-      } else if (!name) {
-        return res.status(400).json({ error: "Name are required" })
-      } else if (!password) {
-        return res.status(400).json({ error: "Password are required" })
+      if (!username || !name || !password) {
+        console.log('Faltan datos en la solicitud')
+        return res.status(400).json({ error: 'Todos los campos son obligatorios' })
       }
 
-      const  existingUser = await User.findOne({ username }) //Verificamos si el usuario ya existe
+      const existingUser = await User.findOne({ username });
       if (existingUser) {
-        return res.status(400).json({ error: "Username already exists" })
+        console.log('El usuario ya existe')
+        return res.status(400).json({ error: 'El nombre de usuario ya existe' })
       }
 
-      const passwordHash = await bcrypt.hash(password, 10) //Hasheamos la contraseña
+      const passwordHash = await bcrypt.hash(password, 10)
+      console.log('Contraseña hasheada:', passwordHash)
 
       const newUser = new User({
         username,
         name,
         passwordHash
-      })
+      });
+      console.log('Nuevo usuario:', newUser)
 
-      const savedUser = await newUser.save() //Guardamos el nuevo usuario en la base de datos
+      const savedUser = await newUser.save()
+      console.log('Usuario guardado:', savedUser)
+      console.log('JWT_SECRET:', JWT_SECRET)
+      const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, { expiresIn: '1h' })
+      console.log('Token generado:', token)
+      console.log('JWT:', JWT_SECRET)
 
-      const token = jwt.sign({ id: savedUser._id }, JWT_SECRET, { expiresIn: '1h' }) //Generamos un token JWT para el usuario
-
-      res.status(201).json({ token, user: { id: savedUser._id, username: savedUser.username, name: savedUser.name } }) //Respondemos con el token y los datos del usuario
+      res.status(201).json({ token, user: { id: savedUser._id, username: savedUser.username, name: savedUser.name } })
     } catch (error) {
-      console.error('Error registering user:', error)
-      res.status(500).json({ error: 'Server error while registering user.' })
+      console.error('Error al registrar el usuario:', error)
+      res.status(500).json({ error: 'Error interno del servidor al registrar el usuario' })
     }
   }
 }

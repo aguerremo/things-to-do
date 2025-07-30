@@ -3,7 +3,7 @@ import RegisterForm from './RegisterForm'
 import { useState } from 'react'
 
 
-const Validation = () => {
+const Validation = ({setUser, setTasks}) => {
 
     const [showForm, setShowForm] = useState(false)
    
@@ -15,17 +15,16 @@ const Validation = () => {
        console.log('clicked')
        
        return <div>
-             <RegisterForm />
+             <RegisterForm setShowForm={setShowForm} showForm={showForm}/>
               <button onClick={handleClick}>Cancel</button>
-       </div>
-       
+       </div>     
      } 
-   
+  
      return <div>
         <div>
           <h2>Welcome to TTD</h2>
           <p>Please log in or register to continue.</p>
-          <LoginForm />
+          <LoginForm setUser={setUser} setTasks={setTasks}/>
           <button onClick={handleClick}>Register</button>
        </div>
        </div>
